@@ -1,1 +1,2 @@
-
+[TYPECHECK]
+ignored-modules=sublime,sublime_plugin
