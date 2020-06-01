@@ -4,7 +4,7 @@
 
 **Important tip: You must install [Inkscape](https://inkscape.org/) before you use this plugin, this plugin only works with Sublime Text 3.**
 
-![Preview](/preview.png)
+![Preview](./preview.png)
 
 ## Install
 
@@ -34,4 +34,4 @@ If you want to use hotkey, open menu `Preferences` -> `Key Bindings` and add key
 ``` 
 ## License
 
-[MIT](/LICENSE)
+[MIT](./LICENSE)
