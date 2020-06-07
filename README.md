@@ -1,4 +1,4 @@
-# Sublime SVG Preview
+# Sublime SVG Preview ![Package Control](https://img.shields.io/packagecontrol/dt/SVG Preview?style=flat-square)
 
 > Sublime Text plugin to preview SVG files.
 
