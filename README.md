@@ -10,7 +10,7 @@
 
 ### Package Control
 
-Recommand reach `Sublime SVG Preview` via [Package Control](https://packagecontrol.io/packages/Sublime-SVG-Preview).
+Recommand reach `Sublime SVG Preview` via [Package Control](https://packagecontrol.io/packages/SVG%20Preview).
 
 ### Manually
 
