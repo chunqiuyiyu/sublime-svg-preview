@@ -17,7 +17,7 @@ Recommand reach `Sublime SVG Preview` via [Package Control](https://packagecontr
 1. Locate your Sublime Text Packages directory by using Sublime Text menu `Preferences` -> `Browse Packages....`.
 2. Cloning the repository directly into your Sublime Text Packages directory.
 ```bash
-git clone https://github.com/chunqiuyiyu/sublime-svg-preview svg-Preview
+git clone https://github.com/chunqiuyiyu/sublime-svg-preview svg-preview
 ```
 
 ## Usage
