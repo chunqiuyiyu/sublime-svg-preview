@@ -32,6 +32,11 @@ If you want to use hotkey, open menu `Preferences` -> `Key Bindings` and add key
   "command": "svg_preview"
 }
 ``` 
+
+## Credits
+
+@gwenzek
+
 ## License
 
 [MIT](./LICENSE)
