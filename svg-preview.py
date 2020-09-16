@@ -5,7 +5,7 @@ Sublime Text plugin to preview SVG files.
 import os
 import shutil
 
-# import sublime
+import sublime
 import sublime_plugin
 
 # pylint: disable=relative-beyond-top-level
@@ -27,44 +27,56 @@ class SvgPreviewCommand(sublime_plugin.TextCommand):
         """
         Convert current SVG file to PNG use Inkscape
         """
+        name = self.view.file_name()
+        tmp_png_path = self.convert(name)
+        # Shows a popup displaying HTML content
+        self.view.show_popup('<img src="file://{}">'.format(tmp_png_path))
+
+    def convert(self, name):
+        basename = os.path.basename(name)
+        origin_name = get_origin_name(basename)
 
         # Firstly, we need a tmp folder to storage cache file
         if not os.path.exists(TMP_DIR):
             os.mkdir(TMP_DIR)
 
-        # pylint: disable=attribute-defined-outside-init
-        name = self.view.file_name()
-        basename = os.path.basename(name)
-        origin_name = get_origin_name(basename)
-
         cached_file_name = check_cached_file(name, basename, origin_name)
-
         if cached_file_name:
-            tmp_png_path = os.path.join(TMP_DIR, cached_file_name)
-        else:
+            return os.path.join(TMP_DIR, cached_file_name)
+
+        settings = sublime.load_settings("svg_preview.sublime-settings")
+        converter = settings.get("converter", "inkscape")
+
+        if converter.endswith("inkscape"):
             # In some cases, we need to get the correct object information
             # in order to convert SVG file correctly.
             query_cmd = 'inkscape --query-all "{}"'.format(name)
-            result = run_cmd(query_cmd, 'Parse SVG file failed!')
-
-            svg_id = result.split(',')[0]
-
-            tmp_svg_path = os.path.join(TMP_DIR, basename)
+            result = run_cmd(query_cmd, "Parse SVG file failed!")
+            svg_id = result.split(",")[0]
 
             keep_tmp_pool()
-            shutil.copy2(name, tmp_svg_path)
 
+            out = os.path.join(TMP_DIR, "{}_{}.png".format(origin_name, svg_id))
             # Convert SVG file to PNG format with Inkscape
-            convert_cmd = 'inkscape --export-type=png --export-id="{}" "{}"'.format(
-                svg_id, tmp_svg_path)
+            convert_cmd = '{} --export-type=png --export-id="{}" "{}" -o "{}"'.format(
+                converter, svg_id, name, out
+            )
 
-            run_cmd(convert_cmd, 'Convert SVG to PNG failed!')
+            run_cmd(convert_cmd, "Convert SVG to PNG failed!")
 
-            tmp_png_path = os.path.join(
-                TMP_DIR, '{}_{}.png'.format(origin_name, svg_id))
-
-        # Shows a popup displaying HTML content
-        self.view.show_popup('<img src="file://{}">'.format(tmp_png_path))
+            return out
+        elif converter.endswith("magick"):
+            # TODO(gwenzek): I don't understand what the --export-id is doing ?
+            # Is this used for cache invalidation ?
+            svg_id = "magick"
+            out = os.path.join(TMP_DIR, "{}_{}.png".format(origin_name, svg_id))
+            convert_cmd = "{} {} {}".format(converter, name, out)
+            run_cmd(convert_cmd, "Convert SVG to PNG failed!")
+            return out
+        else:
+            raise ValueError(
+                "Invalid value for setting 'converter': {}".format(converter)
+            )
 
     def is_visible(self):
         """
@@ -72,4 +84,4 @@ class SvgPreviewCommand(sublime_plugin.TextCommand):
         """
         name = os.path.basename(self.view.file_name())
         # We only show menu when current view is in SVG file
-        return name.split('.')[-1] == 'svg'
+        return name.split(".")[-1] == "svg"

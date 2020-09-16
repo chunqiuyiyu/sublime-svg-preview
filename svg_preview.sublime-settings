@@ -1,0 +1,9 @@
+{
+    // Choses the prefered svg -> png converter.
+    // Only "inkscape" (default) and "magick" are supported.
+    // Those command must be visible in your PATH,
+    // alternatively you can put here a full path to the binary.
+    "converter": "inkscape"
+    // "converter": "magick"
+    // "converter": "/Applications/Inkscape.app/Contents/MacOS/inkscape"
+}
