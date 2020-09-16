@@ -35,7 +35,7 @@ If you want to use hotkey, open menu `Preferences` -> `Key Bindings` and add key
 
 ## Credits
 
-@gwenzek
+[@gwenzek](https://github.com/gwenzek)
 
 ## License
 
