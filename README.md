@@ -33,7 +33,7 @@ If you want to use hotkey, open menu `Preferences` -> `Key Bindings` and add key
 }
 ``` 
 
-## Simliar Project
+## Similar Project
 
 [SVG Viewer](https://github.com/YariKartoshe4ka/sublime-svg-viewer) [@YariKartoshe4ka](https://github.com/YariKartoshe4ka)
 
